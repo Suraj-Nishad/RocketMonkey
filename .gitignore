@@ -1,0 +1,8 @@
+Makefile
+CMakeFiles/
+bin/
+CMakeCache.txt
+cmake_*
+*~
+B2D
+\#*\#
