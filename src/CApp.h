@@ -7,11 +7,14 @@
 #include "wall.h"
 #include "player.h"
 #include "camera.h"
+#include <Box2D/Box2D.h>
 
 class CApp : public CEvent
 {
 private:
-    bool            Running;
+    unsigned int m_last_time, m_current_time;
+    b2World* box2d_world;
+    bool Running;
     SDL_Window* window;
     SDL_Renderer* renderer;
     Wall* m_wall;

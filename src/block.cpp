@@ -1,8 +1,8 @@
 #include "block.h"
 #include "wall.h"
 
-Block::Block(const Wall& wall, SDL_Point pos, bool filled)
-    : GameObject(pos), m_filled(filled), m_wall(wall)
+Block::Block(b2World* b2world, const Wall& wall, SDL_Point pos, bool filled)
+    : GameObject(b2world, pos, b2_staticBody), m_filled(filled), m_wall(wall)
 {
 }
 

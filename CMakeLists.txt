@@ -24,9 +24,10 @@ configure_file (
 
 include_directories(
         "/usr/include/"
+        "/opt/Box2d/include/"
         "${BIN}/"
 )
-
+link_directories(/opt/Box2d/lib)
 
 add_executable(B2D ${SRC}/main.cpp 
                    ${SRC}/CEvent.cpp ${SRC}/CEvent.h
@@ -40,4 +41,4 @@ add_executable(B2D ${SRC}/main.cpp
                    ${SRC}/camera.cpp ${SRC}/camera.h
                    )
 
-target_link_libraries(B2D box2d ${SDL2_LIBS} jsoncpp)
+target_link_libraries(B2D Box2D ${SDL2_LIBS} jsoncpp)

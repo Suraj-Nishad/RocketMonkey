@@ -16,9 +16,11 @@ private:
     SDL_Rect m_screen;
     SDL_Point m_tiles;
     const Camera& m_camera;
+    b2World* m_b2world;
     std::vector<std::vector<Block*> > m_blocks;
 public:
-    Wall(const SDL_Rect& screen, const SpriteFile& wall, const Camera& camera);
+    Wall(b2World* m_b2world, const SDL_Rect& screen, const SpriteFile& wall,
+         const Camera& camera);
     void updateRegion();
     void onRender(SDL_Renderer* ren);
     const SpriteFile& getSprites() const {

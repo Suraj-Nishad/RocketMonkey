@@ -22,8 +22,10 @@ static bool remove_old_blocks(const std::vector<Block*>& blocks)
 }
 
 
-Wall::Wall(const SDL_Rect& screen, const SpriteFile& wall, const Camera& camera)
-    : m_wall(wall), m_tunnel_size(2), m_screen(screen), m_camera(camera)
+Wall::Wall(b2World* b2world, const SDL_Rect& screen, const SpriteFile& wall,
+           const Camera& camera)
+    : m_wall(wall), m_tunnel_size(3), m_screen(screen), m_camera(camera),
+      m_b2world(b2world)
 {
     const Sprite& normal = m_wall.getSprite("red");
     m_tiles.y = m_screen.h / normal.getHeight() + 2;
@@ -48,10 +50,12 @@ void Wall::updateRegion()
             const int y_end = y_start + screen_heights * m_tiles.y;
             for(int y = y_start; y < y_end; y++) {
                 bool filled = abs(y - m_path.y) > m_tunnel_size ? true : false;
-                SDL_Point pos;
-                pos.x = x * normal.getWidth();
-                pos.y = y * normal.getWidth();
-                blocks.push_back(new Block(*this, pos, filled));
+                if(filled) {
+                    SDL_Point pos;
+                    pos.x = x * normal.getWidth();
+                    pos.y = y * normal.getWidth();
+                    blocks.push_back(new Block(m_b2world, *this, pos, filled));
+                }
             }
             m_blocks.push_back(blocks);
             m_path.y += rand() % 2 ? 1 : -1;
