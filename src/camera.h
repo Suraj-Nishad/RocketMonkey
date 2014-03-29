@@ -2,8 +2,8 @@
 #define _CAMERA_H_
 
 #include <SDL.h>
-#include "game_object.h"
 
+class GameObject;
 class Camera
 {
 private:

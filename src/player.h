@@ -10,7 +10,7 @@ private:
     const Sprite& m_sprite;
 public:
     Player(const SDL_Point& pos, const Sprite& sprite);
-    void onRender(SDL_Renderer* ren);
+    void onRender(SDL_Renderer* ren, const Camera& cam) const;
 };
 
 #endif

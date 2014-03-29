@@ -12,7 +12,10 @@ private :
     const Wall& m_wall;
 public:
     Block(const Wall& wall, SDL_Point pos, bool filled);
-    void onRender(SDL_Renderer* ren);
+    void onRender(SDL_Renderer* ren, const Camera& cam) const;
+    const Wall& getWall() const {
+        return m_wall;
+    };
 };
 
 #endif

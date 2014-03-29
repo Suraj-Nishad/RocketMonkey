@@ -12,7 +12,7 @@ class Wall
 private:
     const SpriteFile& m_wall;
     int m_tunnel_size;
-    int m_path;
+    SDL_Point m_path;
     SDL_Rect m_screen;
     SDL_Point m_tiles;
     const Camera& m_camera;

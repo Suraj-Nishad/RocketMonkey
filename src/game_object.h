@@ -1,6 +1,7 @@
 #ifndef _GAMEOBJECT_H_
 #define _GAMEOBJECT_H_
 #include <SDL.h>
+#include "camera.h"
 
 class GameObject
 {
@@ -17,6 +18,10 @@ public:
     void moveY(int y) {
         m_pos.y += y;
     };
+
+    virtual void onRender(SDL_Renderer* ren, const Camera& cam) const = 0;
+    const SDL_Point applyCamera(const Camera& cam) const;
+    virtual ~GameObject() {};
 };
 
 #endif

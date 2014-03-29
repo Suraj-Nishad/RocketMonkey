@@ -1,4 +1,5 @@
 #include "camera.h"
+#include "game_object.h"
 
 Camera::Camera(const SDL_Rect& screen, const GameObject& target)
     : m_screen(screen), m_target(target)
@@ -7,8 +8,8 @@ Camera::Camera(const SDL_Rect& screen, const GameObject& target)
 
 void Camera::updatePosition()
 {
-    const int MAX_MOVEMENT = 10;
-    SDL_Point target_pos = m_target.getPos();
+    const int MAX_MOVEMENT = 1;
+    const SDL_Point target_pos = m_target.getPos();
     SDL_Point center;
     center.x = m_screen.x + m_screen.w / 2;
     center.y = m_screen.y + m_screen.h / 2;

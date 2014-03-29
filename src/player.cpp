@@ -5,7 +5,7 @@ Player::Player(const SDL_Point& point, const Sprite& sprite)
 {
 }
 
-void Player::onRender(SDL_Renderer* ren)
+void Player::onRender(SDL_Renderer* ren, const Camera& cam) const
 {
-    m_sprite.onRender(ren, m_pos);
+    m_sprite.onRender(ren, applyCamera(cam));
 }

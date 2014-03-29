@@ -76,7 +76,7 @@ void CApp::OnRender()
 {
     SDL_RenderClear(renderer);
     m_wall->onRender(renderer);
-    m_player->onRender(renderer);
+    m_player->onRender(renderer, *m_camera);
     SDL_RenderPresent(renderer);
 }
 
