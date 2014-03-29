@@ -14,8 +14,8 @@ private:
     std::unordered_map<std::string, const Sprite*> m_sprites;
 public:
     void onLoad(SDL_Renderer* ren, const std::string& sprite_file);
-    const Sprite* getSprite(std::string name) {
-        return m_sprites[name];
+    const Sprite& getSprite(std::string name) const {
+        return *m_sprites.at(name);
     };
     SDL_Texture* getTexture() const {
         return m_texture;

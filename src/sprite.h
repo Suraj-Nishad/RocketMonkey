@@ -13,7 +13,13 @@ private:
     const SDL_Rect m_clip;
 public:
     Sprite(const SpriteFile& f, std::string name, const SDL_Rect& clip);
-    void onRender(SDL_Renderer* ren, uint32_t x, uint32_t y) const;
+    void onRender(SDL_Renderer* ren, SDL_Point pt) const;
+    int getWidth() const {
+        return m_clip.w;
+    };
+    int getHeight() const {
+        return m_clip.h;
+    };
 };
 
 #endif
