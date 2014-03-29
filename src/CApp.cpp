@@ -39,7 +39,9 @@ void CApp::OnLoop()
 void CApp::OnRender()
 {
     SDL_RenderClear(renderer);
-    //SDL_RenderCopy(renderer, tex, NULL, NULL);
+    SpriteFile test;
+    test.onLoad(renderer, "img/wall.json");
+    test.getSprite("red")->onRender(renderer, 100, 100);
     SDL_RenderPresent(renderer);
 }
 

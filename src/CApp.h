@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include "CEvent.h"
+#include "spritefile.h"
 
 class CApp : public CEvent
 {
