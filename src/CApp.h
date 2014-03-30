@@ -7,6 +7,7 @@
 #include "wall.h"
 #include "player.h"
 #include "camera.h"
+#include "contact.h"
 #include <Box2D/Box2D.h>
 
 class CApp : public CEvent
@@ -21,6 +22,7 @@ private:
     SpriteFile* m_sprites;
     Player* m_player;
     Camera* m_camera;
+    Contact* m_contact;
 public:
     CApp();
     int OnExecute();

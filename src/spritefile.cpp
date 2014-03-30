@@ -4,6 +4,11 @@
 #include <fstream>
 #include <jsoncpp/json/json.h>
 
+SpriteFile::SpriteFile(SDL_Renderer* ren, const std::string& sprite_json_path)
+{
+    onLoad(ren, sprite_json_path);
+}
+
 void SpriteFile::onLoad(SDL_Renderer* ren, const std::string& sprite_json_path)
 {
     Json::Value root;   // will contains the root value after parsing.

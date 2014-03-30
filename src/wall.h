@@ -18,8 +18,10 @@ private:
     const Camera& m_camera;
     b2World* m_b2world;
     std::vector<std::vector<Block*> > m_blocks;
+    void updateWallTextures();
+    void setWallTexture(Block& block, uint32_t wall_sides);
 public:
-    Wall(b2World* m_b2world, const SDL_Rect& screen, const SpriteFile& wall,
+    Wall(b2World* m_b2world, SDL_Renderer* ren, const SDL_Rect& screen,
          const Camera& camera);
     void updateRegion();
     void onRender(SDL_Renderer* ren);

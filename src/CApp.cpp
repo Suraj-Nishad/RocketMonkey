@@ -27,7 +27,7 @@ void CApp::OnKeyDown(SDL_Keycode sym, SDL_Keymod mod)
             //m_player->forceHorizontal(50);
             break;
         case SDLK_UP:
-            m_player->forceVertical(10);
+            m_player->forceVertical(2);
             break;
         case SDLK_DOWN:
             //m_player->forceVertical(-50);
@@ -45,7 +45,7 @@ bool CApp::OnInit()
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         return false;
     }
-    if((window = SDL_CreateWindow("Test123", SDL_WINDOWPOS_UNDEFINED,
+    if((window = SDL_CreateWindow("RocketMonkey", SDL_WINDOWPOS_UNDEFINED,
                                   SDL_WINDOWPOS_UNDEFINED, screen.w, screen.h,
                                   SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN)) == NULL) {
         return false;
@@ -59,12 +59,13 @@ bool CApp::OnInit()
     box2d_world = new b2World(gravity);
     player_pos.x = 10;
     player_pos.y = screen.h / 2;
-    m_sprites = new SpriteFile();
-    m_sprites->onLoad(renderer, "img/wall.json");
-    m_player = new Player(box2d_world, player_pos, m_sprites->getSprite("blue"));
+    m_sprites = new SpriteFile(renderer, "img/player.json");
+    m_player = new Player(box2d_world, player_pos, m_sprites->getSprite("default"));
     m_camera = new Camera(screen, *m_player);
-    m_wall = new Wall(box2d_world, screen, *m_sprites, *m_camera);
+    m_wall = new Wall(box2d_world, renderer, screen, *m_camera);
     m_current_time = m_last_time = SDL_GetTicks();
+    m_contact = new Contact();
+    box2d_world->SetContactListener(m_contact);
     return true;
 }
 

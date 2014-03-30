@@ -1,0 +1,7 @@
+{
+    "sprite":"img/splash.png",
+    "transparent":true,
+    "sub_sprites": {
+        "red"   : {"x":640, "y":480}
+    }
+}

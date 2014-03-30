@@ -11,7 +11,6 @@ cmake \
     -DCMAKE_VERBOSE_MAKEFILE=ON \
     -DCMAKE_INSTALL_PREFIX=/opt/Box2d \
     ..
-cd ..
 make clean
 make
 

@@ -1,13 +1,9 @@
 #include "player.h"
+#include <iostream>
 
 Player::Player(b2World* b2world, const SDL_Point& point, const Sprite& sprite)
-    : GameObject(b2world, point, b2_dynamicBody), m_sprite(sprite)
+    : GameObject(b2world, &sprite, point, b2_dynamicBody)
 {
-}
-
-void Player::onRender(SDL_Renderer* ren, const Camera& cam) const
-{
-    m_sprite.onRender(ren, applyCamera(cam));
 }
 
 void Player::onLoop()
@@ -15,4 +11,12 @@ void Player::onLoop()
     b2Vec2 vel = getBody()->GetLinearVelocity();
     vel.x = 2;
     getBody()->SetLinearVelocity(vel);
+}
+
+void Player::startContact(GameObject*)
+{
+}
+
+void Player::endContact(GameObject*)
+{
 }

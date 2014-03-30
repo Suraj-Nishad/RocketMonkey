@@ -39,6 +39,7 @@ add_executable(B2D ${SRC}/main.cpp
                    ${SRC}/game_object.cpp ${SRC}/game_object.h
                    ${SRC}/player.cpp ${SRC}/player.h
                    ${SRC}/camera.cpp ${SRC}/camera.h
+                   ${SRC}/contact.cpp ${SRC}/contact.h
                    )
 
 target_link_libraries(B2D Box2D ${SDL2_LIBS} jsoncpp)
