@@ -20,7 +20,7 @@ typedef struct {
 
 Wall::Wall(b2World* b2world, SDL_Renderer* ren, const SDL_Rect& screen,
            const Camera& camera)
-    : m_wall(*new SpriteFile(ren, "img/wall.json")), m_tunnel_size(3),
+    : m_wall(*new SpriteFile(ren, "img/wall.json")), m_tunnel_size(6),
       m_screen(screen), m_camera(camera),
       m_b2world(b2world)
 {
@@ -106,6 +106,7 @@ void Wall::setWallTexture(Block& block, uint32_t wall_sides)
             break;
     }
     block.setSpriteRotate((3.14159f / 180.0f) * angle);
+    block.setSpriteInvert(false);
     block.setSprite(*sprite);
 }
 
@@ -143,6 +144,7 @@ void Wall::updateRegion()
     const Sprite& normal = m_wall.getSprite("0side");
     const int x_start = region.x / normal.getWidth();
     const int x_end = x_start + m_tiles.x;
+    bool updated = false;
     for(int x = x_start; x < x_end; x++) {
         if(x >= m_path.x) {
             std::vector<Block*> blocks;
@@ -166,6 +168,12 @@ void Wall::updateRegion()
             m_blocks.push_back(blocks);
             m_path.y += rand() % 2 ? 1 : -1;
             m_path.x++;
+            m_tunnel_size = (4 - m_path.x / 20) + 3 + (rand() % 2) * ((
+                                rand() % 2) ? -1 : 1);
+            if(m_tunnel_size < 2) {
+                m_tunnel_size = 2 + rand() % 2;
+            }
+            updated = true;
         }
     }
     m_blocks.erase(std::remove_if(m_blocks.begin(), m_blocks.end(),
@@ -181,11 +189,14 @@ void Wall::updateRegion()
                     delete *y;
                 }
             }
+            updated |= invisible;
             return invisible;
         }
         return true;
     }), m_blocks.end());
-    updateWallTextures();
+    if(updated) {
+        updateWallTextures();
+    }
 }
 
 void Wall::onRender(SDL_Renderer* ren)

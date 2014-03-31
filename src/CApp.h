@@ -23,6 +23,7 @@ private:
     Player* m_player;
     Camera* m_camera;
     Contact* m_contact;
+    SDL_Rect m_screen;
 public:
     CApp();
     int OnExecute();

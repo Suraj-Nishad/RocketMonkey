@@ -13,7 +13,8 @@ private:
     const SDL_Rect m_clip;
 public:
     Sprite(const SpriteFile& f, std::string name, const SDL_Rect& clip);
-    void onRender(SDL_Renderer* ren, SDL_Point pt, float rad_angle) const;
+    void onRender(SDL_Renderer* ren, SDL_Point pt, float rad_angle,
+                  bool m_invert) const;
     int getWidth() const {
         return m_clip.w;
     };

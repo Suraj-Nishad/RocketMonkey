@@ -11,6 +11,7 @@ private:
     b2Body* m_body;
     b2World* m_world;
     const Sprite* m_sprite;
+    bool m_invert;
 public:
     GameObject(b2World* world, const Sprite* sprite, SDL_Point pos,
                b2BodyType body_type);
@@ -26,6 +27,9 @@ public:
     } ;
     const Sprite* getSprite() const {
         return m_sprite;
+    };
+    void setSpriteInvert(bool invert) {
+        m_invert = invert;
     };
     void setSprite(const Sprite& sprite) {
         m_sprite = &sprite;

@@ -37,16 +37,15 @@ void CApp::OnKeyDown(SDL_Keycode sym, SDL_Keymod mod)
 
 bool CApp::OnInit()
 {
-    SDL_Rect screen;
-    screen.w = 640;
-    screen.h = 480;
-    screen.x = 0;
-    screen.y = 0;
+    m_screen.w = 640;
+    m_screen.h = 480;
+    m_screen.x = 0;
+    m_screen.y = 0;
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         return false;
     }
     if((window = SDL_CreateWindow("RocketMonkey", SDL_WINDOWPOS_UNDEFINED,
-                                  SDL_WINDOWPOS_UNDEFINED, screen.w, screen.h,
+                                  SDL_WINDOWPOS_UNDEFINED, m_screen.w, m_screen.h,
                                   SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN)) == NULL) {
         return false;
     }
@@ -58,11 +57,11 @@ bool CApp::OnInit()
     b2Vec2 gravity(0, -9.8); //normal earth gravity, 9.8 m/s/s straight down!
     box2d_world = new b2World(gravity);
     player_pos.x = 10;
-    player_pos.y = screen.h / 2;
+    player_pos.y = m_screen.h / 2;
     m_sprites = new SpriteFile(renderer, "img/player.json");
     m_player = new Player(box2d_world, player_pos, m_sprites->getSprite("default"));
-    m_camera = new Camera(screen, *m_player);
-    m_wall = new Wall(box2d_world, renderer, screen, *m_camera);
+    m_camera = new Camera(m_screen, *m_player);
+    m_wall = new Wall(box2d_world, renderer, m_screen, *m_camera);
     m_current_time = m_last_time = SDL_GetTicks();
     m_contact = new Contact();
     box2d_world->SetContactListener(m_contact);
@@ -83,10 +82,17 @@ void CApp::OnLoop()
 
 void CApp::OnRender()
 {
+    SDL_Texture* texTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888,
+                             SDL_TEXTUREACCESS_TARGET, m_screen.w, m_screen.h);
+    SDL_SetRenderTarget(renderer, texTarget);
     SDL_RenderClear(renderer);
     m_wall->onRender(renderer);
     m_player->onRender(renderer, *m_camera);
+    SDL_SetRenderTarget(renderer, NULL);
+    SDL_RenderClear(renderer);
+    SDL_RenderCopyEx(renderer, texTarget, NULL, NULL, 0, NULL, SDL_FLIP_VERTICAL);
     SDL_RenderPresent(renderer);
+    SDL_DestroyTexture(texTarget);
 }
 
 int CApp::OnExecute()

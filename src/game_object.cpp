@@ -12,7 +12,7 @@ static int meter2pixel(float meter)
 
 GameObject::GameObject(b2World* b2world, const Sprite* sprite, SDL_Point pos,
                        b2BodyType body_type)
-    : m_world(b2world), m_sprite(sprite)
+    : m_world(b2world), m_sprite(sprite), m_invert(true)
 {
     b2BodyDef myBodyDef;
     myBodyDef.type = body_type;
@@ -57,5 +57,5 @@ const SDL_Point GameObject::applyCamera(const Camera& cam) const
 void GameObject::onRender(SDL_Renderer* ren, const Camera& cam) const
 {
     getSprite()->onRender(ren, applyCamera(cam),
-                          (180.0f / 3.14159f) * m_body->GetAngle());
+                          (180.0f / 3.14159f) * m_body->GetAngle(), m_invert);
 }

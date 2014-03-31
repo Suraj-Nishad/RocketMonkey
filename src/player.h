@@ -6,6 +6,8 @@
 
 class Player : public GameObject
 {
+private:
+    bool m_contact;
 public:
     Player(b2World* b2world, const SDL_Point& pos, const Sprite& sprite);
     void onLoop();
